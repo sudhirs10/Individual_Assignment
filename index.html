@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moonlight Eats</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Moonlight Eats</h1>
+      <p>Student restaurants and menus in Finland</p>
+
+      <nav>
+        <a href="index.html" aria-current="page">Restaurants</a>
+        <a href="account.html">Account</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Restaurants</h2>
+        <p>Select a restaurant to view its menu.</p>
+
+        <div class="filters">
+          <div>
+            <label for="city-filter">City:</label>
+            <select id="city-filter">
+              <option value="">All cities</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="company-filter">Provider:</label>
+            <select id="company-filter">
+              <option value="">All providers</option>
+            </select>
+          </div>
+        </div>
+
+        <p id="restaurant-message" role="status"></p>
+
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Restaurant</th>
+              <th scope="col">City</th>
+              <th scope="col">Company</th>
+              <th scope="col">Select</th>
+            </tr>
+          </thead>
+          <tbody id="restaurant-list"></tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2 id="restaurant-name">Menu</h2>
+
+        <label for="menu-type">Choose menu:</label>
+        <select id="menu-type">
+          <option value="daily">Daily menu</option>
+          <option value="weekly">Weekly menu</option>
+        </select>
+
+        <p id="message" role="status">Choose a restaurant first.</p>
+        <div id="menu-content"></div>
+      </section>
+    </main>
+  </body>
+</html>

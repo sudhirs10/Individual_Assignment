@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account | Moonlight Eats</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="auth.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Moonlight Eats</h1>
+      <p>Student restaurants and menus in Finland</p>
+
+      <nav>
+        <a href="index.html">Restaurants</a>
+        <a href="account.html" aria-current="page">Account</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Register</h2>
+
+        <form id="register-form">
+          <div>
+            <label for="register-username">Username</label>
+            <input
+              type="text"
+              id="register-username"
+              name="username"
+              autocomplete="username"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="register-email">Email</label>
+            <input
+              type="email"
+              id="register-email"
+              name="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="register-password">Password</label>
+            <input
+              type="password"
+              id="register-password"
+              name="password"
+              autocomplete="new-password"
+              required
+            />
+          </div>
+
+          <button type="submit">Register</button>
+        </form>
+
+        <p id="register-message" role="status"></p>
+      </section>
+
+      <section>
+        <h2>Login</h2>
+
+        <form id="login-form">
+          <div>
+            <label for="login-username">Username</label>
+            <input
+              type="text"
+              id="login-username"
+              name="username"
+              autocomplete="username"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="login-password">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+
+          <button type="submit">Login</button>
+        </form>
+
+        <p id="login-message" role="status"></p>
+      </section>
+    </main>
+  </body>
+</html>

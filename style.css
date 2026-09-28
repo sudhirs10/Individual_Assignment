@@ -1,0 +1,201 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: honeydew;
+  color: darkslategray;
+  line-height: 1.6;
+}
+
+header {
+  background-color: darkgreen;
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin: 5px 0 0;
+}
+
+main {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 15px;
+}
+
+section {
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+  overflow-x: auto;
+}
+
+h2 {
+  color: darkgreen;
+  margin-top: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid lightgray;
+}
+
+th {
+  background-color: darkgreen;
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: honeydew;
+}
+
+button {
+  background-color: darkgreen;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: seagreen;
+}
+
+label {
+  font-weight: bold;
+}
+
+select {
+  margin-left: 8px;
+  padding: 8px;
+  border: 1px solid darkgreen;
+  border-radius: 5px;
+  background-color: white;
+  color: darkslategray;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+#menu-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+#menu-content li {
+  background-color: honeydew;
+  border-left: 4px solid seagreen;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+#menu-content h3 {
+  color: darkgreen;
+  margin-top: 25px;
+}
+
+#menu-content h4 {
+  margin: 0 0 8px;
+}
+
+#menu-content p {
+  margin: 5px 0;
+}
+
+@media (max-width: 600px) {
+  main {
+    margin: 15px auto;
+    padding: 0 10px;
+  }
+
+  section {
+    padding: 12px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.filters div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filters select {
+  margin-left: 0;
+  max-width: 100%;
+}
+nav {
+  margin-top: 15px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav a[aria-current="page"] {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+form {
+  max-width: 400px;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: wait;
+}
+
+#register-message {
+  overflow-wrap: anywhere;
+}
