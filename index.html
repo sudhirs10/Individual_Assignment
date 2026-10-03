@@ -30,6 +30,13 @@
       <aside class="restaurant-sidebar">
         <h2>Restaurants</h2>
 
+        <div id="favourite-area" hidden>
+          <p id="favourite-name"></p>
+          <button id="view-favourite" type="button" hidden>
+            View favourite
+          </button>
+        </div>
+
         <div class="filters">
           <div>
             <label for="city-filter">City</label>
@@ -51,7 +58,15 @@
       </aside>
 
       <section class="menu-panel">
-        <h2 id="restaurant-name">Welcome to Moonlight Eats</h2>
+        <div class="menu-title">
+          <h2 id="restaurant-name">Welcome to Moonlight Eats</h2>
+
+          <button id="favourite-button" type="button" hidden>
+            Save favourite
+          </button>
+        </div>
+
+        <p id="favourite-message" role="status"></p>
 
         <div id="menu-controls" hidden>
           <button
@@ -69,6 +84,7 @@
         </div>
 
         <h3 id="menu-heading" hidden>Today's Menu</h3>
+
         <p id="message" role="status">
           Choose a restaurant from the list to see its menu.
         </p>

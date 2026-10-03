@@ -273,3 +273,42 @@ form div {
     max-height: 240px;
   }
 }
+.menu-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.menu-title h2 {
+  margin: 0;
+}
+
+#favourite-button {
+  background-color: gold;
+  border-color: goldenrod;
+  color: darkslategray;
+}
+
+#favourite-button:hover {
+  background-color: khaki;
+}
+
+#favourite-button:disabled {
+  cursor: default;
+}
+
+#favourite-area {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid lightgray;
+}
+
+#favourite-name {
+  font-weight: bold;
+}
+
+#favourite-message {
+  overflow-wrap: anywhere;
+}
