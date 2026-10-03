@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -7,69 +11,81 @@ body {
 }
 
 header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 35px;
   background-color: darkgreen;
   color: white;
-  text-align: center;
-  padding: 25px 15px;
 }
 
 header h1 {
   margin: 0;
+  font-size: 28px;
 }
 
 header p {
-  margin: 5px 0 0;
+  margin: 5px 0;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a[aria-current='page'] {
+  text-decoration: underline;
 }
 
 main {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 0 15px;
+  max-width: 1200px;
+  margin: 25px auto;
+  padding: 0 20px;
 }
 
-section {
+.restaurant-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 25px;
+  align-items: start;
+}
+
+section,
+.restaurant-sidebar {
+  padding: 25px;
   background-color: white;
   border: 1px solid lightgray;
   border-radius: 8px;
-  padding: 20px;
+}
+
+section {
   margin-bottom: 25px;
-  overflow-x: auto;
 }
 
 h2 {
-  color: darkgreen;
   margin-top: 0;
+  color: darkgreen;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid lightgray;
-}
-
-th {
-  background-color: darkgreen;
-  color: white;
-}
-
-tbody tr:nth-child(even) {
-  background-color: honeydew;
+button,
+input,
+select {
+  font: inherit;
 }
 
 button {
+  padding: 8px 16px;
+  border: 1px solid darkgreen;
+  border-radius: 5px;
   background-color: darkgreen;
   color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 14px;
-  font-family: inherit;
-  font-size: 14px;
   cursor: pointer;
 }
 
@@ -77,95 +93,146 @@ button:hover {
   background-color: seagreen;
 }
 
+button:disabled {
+  background-color: gray;
+  border-color: gray;
+  cursor: wait;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid goldenrod;
+  outline-offset: 3px;
+}
+
+#logout-button {
+  margin-top: 5px;
+  border-color: white;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 label {
+  display: block;
+  margin-bottom: 5px;
   font-weight: bold;
 }
 
-select {
-  margin-left: 8px;
+select,
+input {
+  width: 100%;
   padding: 8px;
-  border: 1px solid darkgreen;
+  border: 1px solid gray;
   border-radius: 5px;
   background-color: white;
   color: darkslategray;
-  font-family: inherit;
-  font-size: 16px;
 }
 
-#menu-content ul {
-  list-style: none;
+#restaurant-message {
+  font-size: 14px;
+}
+
+#restaurant-list {
+  max-height: 500px;
+  margin: 0;
   padding: 0;
+  overflow-y: auto;
+  list-style: none;
 }
 
-#menu-content li {
-  background-color: honeydew;
-  border-left: 4px solid seagreen;
+#restaurant-list li {
+  margin-bottom: 6px;
+}
+
+.restaurant-button {
+  display: block;
+  width: 100%;
   padding: 12px;
-  margin-bottom: 12px;
+  text-align: left;
+  border: 1px solid lightgray;
+  background-color: white;
+  color: darkslategray;
 }
 
-#menu-content h3 {
-  color: darkgreen;
-  margin-top: 25px;
+.restaurant-button:hover {
+  background-color: honeydew;
 }
 
-#menu-content h4 {
-  margin: 0 0 8px;
+.restaurant-button.selected {
+  border-color: darkgreen;
+  background-color: honeydew;
 }
 
-#menu-content p {
-  margin: 5px 0;
-}
-
-@media (max-width: 600px) {
-  main {
-    margin: 15px auto;
-    padding: 0 10px;
-  }
-
-  section {
-    padding: 12px;
-  }
-
-  th,
-  td {
-    padding: 8px;
-  }
-}
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 15px;
-}
-
-.filters div {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.filters select {
-  margin-left: 0;
-  max-width: 100%;
-}
-nav {
-  margin-top: 15px;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-nav a[aria-current="page"] {
+.restaurant-title {
+  display: block;
   font-weight: bold;
-  text-decoration: underline;
+}
+
+.restaurant-city {
+  display: block;
+  font-size: 14px;
+}
+
+.menu-panel {
+  min-height: 350px;
+}
+
+#menu-controls button {
+  margin-right: 8px;
+  margin-bottom: 10px;
+  background-color: white;
+  color: darkgreen;
+}
+
+#menu-controls button.active,
+#menu-controls button:hover {
+  background-color: darkgreen;
+  color: white;
+}
+
+#menu-heading {
+  margin-top: 20px;
+}
+
+.course-card {
+  margin-bottom: 18px;
+  padding: 20px;
+  border-left: 4px solid darkgreen;
+  border-radius: 5px;
+  background-color: whitesmoke;
+}
+
+.course-card h4 {
+  margin: 0 0 15px;
+  font-size: 18px;
+}
+
+.course-card p {
+  margin: 10px 0 0;
+}
+
+.price {
+  color: green;
+  font-weight: bold;
+}
+
+.diets {
+  font-style: italic;
+}
+
+.menu-day {
+  margin-bottom: 25px;
+}
+
+.day-heading {
+  margin: 15px 0;
+  font-size: 18px;
 }
 
 form {
@@ -176,26 +243,33 @@ form div {
   margin-bottom: 15px;
 }
 
-form label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-form input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px;
-  border: 1px solid gray;
-  border-radius: 5px;
-  font-family: inherit;
-  font-size: 16px;
-}
-
-button:disabled {
-  background-color: gray;
-  cursor: wait;
-}
-
 #register-message {
   overflow-wrap: anywhere;
+}
+
+@media (max-width: 750px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  main {
+    padding: 0 12px;
+    margin: 15px auto;
+  }
+
+  .restaurant-layout {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  section,
+  .restaurant-sidebar {
+    padding: 18px;
+  }
+
+  #restaurant-list {
+    max-height: 240px;
+  }
 }

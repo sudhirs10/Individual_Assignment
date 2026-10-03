@@ -10,30 +10,36 @@
 
   <body>
     <header>
-      <h1>Moonlight Eats</h1>
-      <p>Student restaurants and menus in Finland</p>
+      <div>
+        <h1>Moonlight Eats</h1>
+        <p>Student restaurants in Finland</p>
+      </div>
 
-      <nav>
-        <a href="index.html" aria-current="page">Restaurants</a>
-        <a href="account.html">Account</a>
-      </nav>
+      <div>
+        <nav>
+          <a href="index.html" aria-current="page">Restaurants</a>
+          <a href="account.html">Account</a>
+        </nav>
+
+        <p id="user-info" role="status"></p>
+        <button id="logout-button" type="button" hidden>Logout</button>
+      </div>
     </header>
 
-    <main>
-      <section>
+    <main class="restaurant-layout">
+      <aside class="restaurant-sidebar">
         <h2>Restaurants</h2>
-        <p>Select a restaurant to view its menu.</p>
 
         <div class="filters">
           <div>
-            <label for="city-filter">City:</label>
+            <label for="city-filter">City</label>
             <select id="city-filter">
               <option value="">All cities</option>
             </select>
           </div>
 
           <div>
-            <label for="company-filter">Provider:</label>
+            <label for="company-filter">Provider</label>
             <select id="company-filter">
               <option value="">All providers</option>
             </select>
@@ -41,30 +47,32 @@
         </div>
 
         <p id="restaurant-message" role="status"></p>
+        <ul id="restaurant-list"></ul>
+      </aside>
 
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Restaurant</th>
-              <th scope="col">City</th>
-              <th scope="col">Company</th>
-              <th scope="col">Select</th>
-            </tr>
-          </thead>
-          <tbody id="restaurant-list"></tbody>
-        </table>
-      </section>
+      <section class="menu-panel">
+        <h2 id="restaurant-name">Welcome to Moonlight Eats</h2>
 
-      <section>
-        <h2 id="restaurant-name">Menu</h2>
+        <div id="menu-controls" hidden>
+          <button
+            id="daily-button"
+            class="active"
+            type="button"
+            aria-pressed="true"
+          >
+            Daily Menu
+          </button>
 
-        <label for="menu-type">Choose menu:</label>
-        <select id="menu-type">
-          <option value="daily">Daily menu</option>
-          <option value="weekly">Weekly menu</option>
-        </select>
+          <button id="weekly-button" type="button" aria-pressed="false">
+            Weekly Menu
+          </button>
+        </div>
 
-        <p id="message" role="status">Choose a restaurant first.</p>
+        <h3 id="menu-heading" hidden>Today's Menu</h3>
+        <p id="message" role="status">
+          Choose a restaurant from the list to see its menu.
+        </p>
+
         <div id="menu-content"></div>
       </section>
     </main>

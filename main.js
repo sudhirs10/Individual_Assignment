@@ -1,49 +1,52 @@
-import { baseUrl, fetchData } from "./api.js";
+import {baseUrl, fetchData} from './api.js';
 
-const restaurantList = document.querySelector("#restaurant-list");
-const restaurantMessage = document.querySelector("#restaurant-message");
-const cityFilter = document.querySelector("#city-filter");
-const companyFilter = document.querySelector("#company-filter");
-
-const restaurantName = document.querySelector("#restaurant-name");
-const menuType = document.querySelector("#menu-type");
-const menuContent = document.querySelector("#menu-content");
-const message = document.querySelector("#message");
+const restaurantList = document.querySelector('#restaurant-list');
+const restaurantMessage = document.querySelector('#restaurant-message');
+const cityFilter = document.querySelector('#city-filter');
+const companyFilter = document.querySelector('#company-filter');
+const restaurantName = document.querySelector('#restaurant-name');
+const menuControls = document.querySelector('#menu-controls');
+const dailyButton = document.querySelector('#daily-button');
+const weeklyButton = document.querySelector('#weekly-button');
+const menuHeading = document.querySelector('#menu-heading');
+const menuContent = document.querySelector('#menu-content');
+const message = document.querySelector('#message');
+const userInfo = document.querySelector('#user-info');
+const logoutButton = document.querySelector('#logout-button');
 
 let restaurants = [];
 let selectedRestaurant = null;
+let menuType = 'daily';
 let menuRequest = 0;
 
-const showCourses = (courses) => {
+const showCourses = (courses, container) => {
   if (courses.length === 0) {
-    const text = document.createElement("p");
-    text.textContent = "No menu available for this day.";
-    menuContent.appendChild(text);
+    const text = document.createElement('p');
+    text.textContent = 'No menu available for this day.';
+    container.appendChild(text);
     return;
   }
 
-  const list = document.createElement("ul");
-
   courses.forEach((course) => {
-    const item = document.createElement("li");
+    const card = document.createElement('div');
+    card.className = 'course-card';
 
-    const name = document.createElement("h4");
+    const name = document.createElement('h4');
     name.textContent = course.name;
 
-    const price = document.createElement("p");
-    price.textContent = "Price: " + (course.price || "Not available");
+    const price = document.createElement('p');
+    price.className = 'price';
+    price.textContent = course.price || 'Price not available';
 
-    const diets = document.createElement("p");
-    diets.textContent = "Diets: " + (course.diets || "Not provided");
+    const diets = document.createElement('p');
+    diets.className = 'diets';
+    diets.textContent = 'Diets: ' + (course.diets || 'Not provided');
 
-    item.appendChild(name);
-    item.appendChild(price);
-    item.appendChild(diets);
-
-    list.appendChild(item);
+    card.appendChild(name);
+    card.appendChild(price);
+    card.appendChild(diets);
+    container.appendChild(card);
   });
-
-  menuContent.appendChild(list);
 };
 
 const getMenu = async () => {
@@ -51,16 +54,17 @@ const getMenu = async () => {
     return;
   }
 
-  // Only display the latest menu request.
   const currentRequest = ++menuRequest;
-  const type = menuType.value;
+  const type = menuType;
 
-  menuContent.innerHTML = "";
-  message.textContent = "Loading menu...";
+  menuContent.innerHTML = '';
+  menuHeading.hidden = false;
+  menuHeading.textContent = type === 'daily' ? "Today's Menu" : 'Weekly Menu';
+  message.textContent = 'Loading menu...';
 
   try {
     const url =
-      baseUrl + "/restaurants/" + type + "/" + selectedRestaurant._id + "/en";
+      baseUrl + '/restaurants/' + type + '/' + selectedRestaurant._id + '/en';
 
     const menu = await fetchData(url);
 
@@ -68,22 +72,29 @@ const getMenu = async () => {
       return;
     }
 
-    message.textContent = "";
+    message.textContent = '';
 
-    if (type === "daily") {
-      showCourses(menu.courses);
+    if (type === 'daily') {
+      showCourses(menu.courses || [], menuContent);
     } else {
-      if (menu.days.length === 0) {
-        message.textContent = "No weekly menu available.";
+      const days = menu.days || [];
+
+      if (days.length === 0) {
+        message.textContent = 'No weekly menu available.';
         return;
       }
 
-      menu.days.forEach((day) => {
-        const heading = document.createElement("h3");
-        heading.textContent = day.date;
-        menuContent.appendChild(heading);
+      days.forEach((day) => {
+        const dayContent = document.createElement('div');
+        dayContent.className = 'menu-day';
 
-        showCourses(day.courses);
+        const heading = document.createElement('h4');
+        heading.className = 'day-heading';
+        heading.textContent = day.date;
+        dayContent.appendChild(heading);
+
+        showCourses(day.courses || [], dayContent);
+        menuContent.appendChild(dayContent);
       });
     }
   } catch (error) {
@@ -92,54 +103,57 @@ const getMenu = async () => {
     }
 
     console.log(error);
-    menuContent.innerHTML = "";
-    message.textContent = "Could not load the menu. Please try again.";
+    menuContent.innerHTML = '';
+    message.textContent = 'Could not load the menu. Please try again.';
   }
 };
 
 const showRestaurants = (restaurantArray) => {
-  restaurantList.innerHTML = "";
+  restaurantList.innerHTML = '';
 
   if (restaurantArray.length === 0) {
-    restaurantMessage.textContent = "No restaurants match your filters.";
+    restaurantMessage.textContent = 'No matching restaurants.';
     return;
   }
 
   restaurantMessage.textContent =
-    restaurantArray.length + " restaurants found.";
+    restaurantArray.length + ' restaurants found.';
 
   restaurantArray.forEach((restaurant) => {
-    const row = document.createElement("tr");
+    const item = document.createElement('li');
 
-    const name = document.createElement("td");
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'restaurant-button';
+
+    const name = document.createElement('span');
+    name.className = 'restaurant-title';
     name.textContent = restaurant.name;
 
-    const city = document.createElement("td");
+    const city = document.createElement('span');
+    city.className = 'restaurant-city';
     city.textContent = restaurant.city;
 
-    const company = document.createElement("td");
-    company.textContent = restaurant.company;
+    const isSelected =
+      selectedRestaurant !== null && selectedRestaurant._id === restaurant._id;
 
-    const selectCell = document.createElement("td");
+    button.classList.toggle('selected', isSelected);
+    button.setAttribute('aria-pressed', String(isSelected));
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = "View menu";
+    button.appendChild(name);
+    button.appendChild(city);
 
-    button.addEventListener("click", () => {
+    button.addEventListener('click', () => {
       selectedRestaurant = restaurant;
       restaurantName.textContent = restaurant.name;
+      menuControls.hidden = false;
+
+      filterRestaurants();
       getMenu();
     });
 
-    selectCell.appendChild(button);
-
-    row.appendChild(name);
-    row.appendChild(city);
-    row.appendChild(company);
-    row.appendChild(selectCell);
-
-    restaurantList.appendChild(row);
+    item.appendChild(button);
+    restaurantList.appendChild(item);
   });
 };
 
@@ -157,18 +171,18 @@ const createFilters = () => {
     }
   });
 
-  cities.sort((a, b) => a.localeCompare(b, "fi"));
-  companies.sort((a, b) => a.localeCompare(b, "fi"));
+  cities.sort((a, b) => a.localeCompare(b, 'fi'));
+  companies.sort((a, b) => a.localeCompare(b, 'fi'));
 
   cities.forEach((city) => {
-    const option = document.createElement("option");
+    const option = document.createElement('option');
     option.value = city;
     option.textContent = city;
     cityFilter.appendChild(option);
   });
 
   companies.forEach((company) => {
-    const option = document.createElement("option");
+    const option = document.createElement('option');
     option.value = company;
     option.textContent = company;
     companyFilter.appendChild(option);
@@ -176,14 +190,12 @@ const createFilters = () => {
 };
 
 const filterRestaurants = () => {
-  const selectedCity = cityFilter.value;
-  const selectedCompany = companyFilter.value;
-
   const filteredRestaurants = restaurants.filter((restaurant) => {
-    const cityMatches = selectedCity === "" || restaurant.city === selectedCity;
+    const cityMatches =
+      cityFilter.value === '' || restaurant.city === cityFilter.value;
 
     const companyMatches =
-      selectedCompany === "" || restaurant.company === selectedCompany;
+      companyFilter.value === '' || restaurant.company === companyFilter.value;
 
     return cityMatches && companyMatches;
   });
@@ -192,28 +204,84 @@ const filterRestaurants = () => {
 };
 
 const getRestaurants = async () => {
-  try {
-    restaurantMessage.textContent = "Loading restaurants...";
+  restaurantMessage.textContent = 'Loading restaurants...';
 
-    const data = await fetchData(baseUrl + "/restaurants");
+  try {
+    const data = await fetchData(baseUrl + '/restaurants');
     restaurants = Array.isArray(data) ? data : data.restaurants;
 
-    restaurants.sort((a, b) => a.name.localeCompare(b.name, "fi"));
+    restaurants.sort((a, b) => a.name.localeCompare(b.name, 'fi'));
 
     createFilters();
     showRestaurants(restaurants);
   } catch (error) {
     console.log(error);
-    restaurantMessage.textContent =
-      "Could not load restaurants. Please try again.";
+    restaurantMessage.textContent = 'Could not load restaurants.';
   }
 };
 
-cityFilter.addEventListener("change", filterRestaurants);
-companyFilter.addEventListener("change", filterRestaurants);
+const changeMenu = (type) => {
+  menuType = type;
 
-menuType.addEventListener("change", () => {
+  const isDaily = type === 'daily';
+
+  dailyButton.classList.toggle('active', isDaily);
+  weeklyButton.classList.toggle('active', !isDaily);
+
+  dailyButton.setAttribute('aria-pressed', String(isDaily));
+  weeklyButton.setAttribute('aria-pressed', String(!isDaily));
+
   getMenu();
+};
+
+const showUser = async () => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return;
+  }
+
+  try {
+    const user = await fetchData(baseUrl + '/users/token', {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    });
+
+    if (localStorage.getItem('token') !== token) {
+      return;
+    }
+
+    userInfo.textContent = 'Logged in as ' + user.username;
+    logoutButton.hidden = false;
+  } catch (error) {
+    console.log(error);
+
+    if (localStorage.getItem('token') !== token) {
+      return;
+    }
+
+    userInfo.textContent = 'Could not check your login.';
+    logoutButton.hidden = false;
+  }
+};
+
+logoutButton.addEventListener('click', () => {
+  localStorage.removeItem('token');
+  userInfo.textContent = '';
+  logoutButton.hidden = true;
+});
+
+cityFilter.addEventListener('change', filterRestaurants);
+companyFilter.addEventListener('change', filterRestaurants);
+
+dailyButton.addEventListener('click', () => {
+  changeMenu('daily');
+});
+
+weeklyButton.addEventListener('click', () => {
+  changeMenu('weekly');
 });
 
 getRestaurants();
+showUser();
