@@ -25,8 +25,7 @@ features.
 
 I also used ESLint, Prettier and EditorConfig.
 
-Restaurant and account data come from this API:
-https://media2.edu.metropolia.fi/restaurant/
+I used the API which was provided.
 
 ## Running the website locally
 
@@ -51,4 +50,4 @@ and picture upload. I also checked the mobile layout.
 ## Issue noticed
 
 During registration, the API returned an email authentication error.
-I was still able to log in with the account afterwards.
+I was still able to log in.
