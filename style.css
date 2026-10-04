@@ -312,3 +312,12 @@ form div {
 #favourite-message {
   overflow-wrap: anywhere;
 }
+.profile-avatar {
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 20px;
+  border: 2px solid darkgreen;
+  border-radius: 50%;
+  object-fit: cover;
+}

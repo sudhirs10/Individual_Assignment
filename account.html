@@ -6,12 +6,15 @@
     <title>Account | Moonlight Eats</title>
     <link rel="stylesheet" href="style.css" />
     <script type="module" src="auth.js"></script>
+    <script type="module" src="profile.js"></script>
   </head>
 
   <body>
     <header>
-      <h1>Moonlight Eats</h1>
-      <p>Student restaurants and menus in Finland</p>
+      <div>
+        <h1>Moonlight Eats</h1>
+        <p>Student restaurants in Finland</p>
+      </div>
 
       <nav>
         <a href="index.html">Restaurants</a>
@@ -20,16 +23,72 @@
     </header>
 
     <main>
-      <section>
+      <p id="profile-status" role="status"></p>
+
+      <section id="profile-section" hidden>
+        <h2>My profile</h2>
+
+        <form id="profile-form">
+          <div>
+            <label for="profile-username">Username</label>
+            <input
+              id="profile-username"
+              name="username"
+              type="text"
+              autocomplete="username"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="profile-email">Email</label>
+            <input
+              id="profile-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <button type="submit">Save changes</button>
+        </form>
+
+        <p id="profile-message" role="status"></p>
+      </section>
+
+      <section id="picture-section" hidden>
+        <h2>Profile picture</h2>
+        <div id="profile-picture"></div>
+
+        <form id="upload-form">
+          <div>
+            <label for="avatar-input">Choose a picture</label>
+            <input
+              id="avatar-input"
+              name="avatar"
+              type="file"
+              accept="image/*"
+              required
+            />
+          </div>
+
+          <button type="submit">Upload picture</button>
+        </form>
+
+        <p id="upload-message" role="status"></p>
+      </section>
+
+      <section id="register-section">
         <h2>Register</h2>
 
         <form id="register-form">
           <div>
             <label for="register-username">Username</label>
             <input
-              type="text"
               id="register-username"
               name="username"
+              type="text"
               autocomplete="username"
               required
             />
@@ -38,9 +97,9 @@
           <div>
             <label for="register-email">Email</label>
             <input
-              type="email"
               id="register-email"
               name="email"
+              type="email"
               autocomplete="email"
               required
             />
@@ -49,9 +108,9 @@
           <div>
             <label for="register-password">Password</label>
             <input
-              type="password"
               id="register-password"
               name="password"
+              type="password"
               autocomplete="new-password"
               required
             />
@@ -63,16 +122,16 @@
         <p id="register-message" role="status"></p>
       </section>
 
-      <section>
+      <section id="login-section">
         <h2>Login</h2>
 
         <form id="login-form">
           <div>
             <label for="login-username">Username</label>
             <input
-              type="text"
               id="login-username"
               name="username"
+              type="text"
               autocomplete="username"
               required
             />
@@ -81,9 +140,9 @@
           <div>
             <label for="login-password">Password</label>
             <input
-              type="password"
               id="login-password"
               name="password"
+              type="password"
               autocomplete="current-password"
               required
             />

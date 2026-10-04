@@ -1,6 +1,7 @@
 import {baseUrl, fetchData} from './api.js';
 
 const restaurantName = document.querySelector('#restaurant-name');
+const menuPanel = document.querySelector('.menu-panel');
 const controls = document.querySelector('#menu-controls');
 const dailyButton = document.querySelector('#daily-button');
 const weeklyButton = document.querySelector('#weekly-button');
@@ -62,6 +63,13 @@ async function showMenu(restaurant, type) {
   content.innerHTML = '';
   message.textContent = 'Loading menu...';
 
+  if (window.innerWidth <= 750) {
+    menuPanel.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+
   try {
     const url = baseUrl + '/restaurants/' + type + '/' + restaurant._id + '/en';
 
@@ -94,6 +102,7 @@ async function showMenu(restaurant, type) {
   } catch (error) {
     if (request === latestRequest) {
       console.log(error);
+      content.innerHTML = '';
       message.textContent = 'Could not load the menu.';
     }
   }
